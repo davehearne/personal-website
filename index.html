@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --paper: #faf9f7;
+      --accent: #2c5f4f;
+      --accent-light: #4a8b7a;
+      --muted: #6b6b6b;
+      --card-bg: #ffffff;
+      --card-border: #e8e6e3;
+    }
+
+    [data-theme="dark"] {
+      --ink: #e8e6e3;
+      --paper: #1a1a1a;
+      --accent: #5a9f8a;
+      --accent-light: #7ab8a8;
+      --muted: #a0a0a0;
+      --card-bg: #252525;
+      --card-border: #3a3a3a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    header {
+      margin-bottom: 4rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.5rem;
+      transition: color 0.4s ease;
+    }
+
+    nav {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .nav-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      transition: all 0.2s ease, background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .nav-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(44, 95, 79, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .nav-card h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 400;
+      transition: color 0.4s ease;
+    }
+
+    .nav-card .arrow {
+      display: inline-block;
+      margin-top: 0.75rem;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .nav-card:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: border-color 0.4s ease, color 0.4s ease;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: transform 0.3s ease, background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.08);
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.96);
+    }
+
+    .theme-toggle svg {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      transition: opacity 0.3s ease, transform 0.4s ease;
+    }
+
+    .theme-toggle .icon-sun {
+      opacity: 0;
+    }
+
+    .theme-toggle .icon-moon {
+      opacity: 1;
+    }
+
+    [data-theme="dark"] .theme-toggle .icon-sun {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    [data-theme="dark"] .theme-toggle .icon-moon {
+      opacity: 0;
+      transform: rotate(-90deg);
+    }
+
+    @keyframes cursor-bounce {
+      0%, 60%, 100% {
+        transform: translateY(0);
+      }
+      30% {
+        transform: translateY(-0.35em);
+      }
+    }
+
+    .title-line {
+      display: flex;
+      align-items: center;
+      gap: 0.15em;
+    }
+
+    .thinking-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25em;
+      margin-left: 0.1em;
+    }
+
+    .thinking-dots span {
+      width: 0.25em;
+      height: 0.25em;
+      border-radius: 50%;
+      background: currentColor;
+      animation: cursor-bounce 1.4s ease-in-out infinite;
+    }
+
+    .thinking-dots span:nth-child(1) { animation-delay: 0s; }
+    .thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" aria-label="Toggle dark mode" type="button">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+    </svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <div class="container">
+    <header>
+      <h1 id="main-title"><span class="title-line">Dave Hearne Thinking<span class="thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span></span></h1>
+      <p class="tagline">Academic · Educator · Researcher</p>
+    </header>
+
+    <nav>
+      <a href="research.html" class="nav-card">
+        <h2>Research</h2>
+        <p>Publications, projects, and scholarly work</p>
+        <span class="arrow">Explore research →</span>
+      </a>
+
+      <a href="teaching.html" class="nav-card">
+        <h2>Teaching</h2>
+        <p>Courses, seminars, and educational materials</p>
+        <span class="arrow">View teaching →</span>
+      </a>
+
+      <a href="personal.html" class="nav-card">
+        <h2>Personal</h2>
+        <p>Background, interests, and contact</p>
+        <span class="arrow">Learn more →</span>
+      </a>
+    </nav>
+
+    <footer>
+      © 2025. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    const toggle = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme || 'light');
+      localStorage.setItem('theme', theme || 'light');
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(saved || (prefersDark ? 'dark' : 'light'));
+    }
+
+    toggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      setTheme(isDark ? 'light' : 'dark');
+    });
+
+    initTheme();
+  </script>
+</body>
+</html>

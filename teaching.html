@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teaching</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --paper: #faf9f7;
+      --muted: #6b6b6b;
+      --accent: #2c5f4f;
+      --card-bg: #ffffff;
+      --card-border: #e8e6e3;
+    }
+    [data-theme="dark"] {
+      --ink: #e8e6e3;
+      --paper: #1a1a1a;
+      --muted: #a0a0a0;
+      --accent: #5a9f8a;
+      --card-bg: #252525;
+      --card-border: #3a3a3a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      padding: 4rem 2rem;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    a { color: var(--accent); text-decoration: none; transition: color 0.4s ease; }
+    a:hover { text-decoration: underline; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 1rem; }
+    p { color: var(--muted); margin-bottom: 1.5rem; transition: color 0.4s ease; }
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      background: var(--card-bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: transform 0.3s ease, background 0.4s ease, border-color 0.4s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.08); }
+    .theme-toggle:active { transform: scale(0.96); }
+    .theme-toggle svg { position: absolute; width: 22px; height: 22px; transition: opacity 0.3s ease, transform 0.4s ease; color: var(--ink); }
+    .theme-toggle .icon-sun { opacity: 0; }
+    .theme-toggle .icon-moon { opacity: 1; }
+    [data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg); }
+    [data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(-90deg); }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" aria-label="Toggle dark mode" type="button">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+    </svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+  <div class="container">
+    <h1>Teaching</h1>
+    <p>Courses, seminars, and educational materials will appear here.</p>
+    <a href="index.html">← Back to home</a>
+  </div>
+  <script>
+    const toggle = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme || 'light');
+      localStorage.setItem('theme', theme || 'light');
+    }
+    function initTheme() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(saved || (prefersDark ? 'dark' : 'light'));
+    }
+    toggle.addEventListener('click', () => {
+      setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    initTheme();
+  </script>
+</body>
+</html>
