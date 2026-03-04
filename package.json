@@ -1,0 +1,14 @@
+{
+  "name": "personal-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:html && npm run test:links",
+    "test:html": "html-validate index.html research.html teaching.html personal.html",
+    "test:links": "lychee ./index.html ./research.html ./teaching.html ./personal.html"
+  },
+  "devDependencies": {
+    "html-validate": "^8.21.0",
+    "lychee": "^0.14.0"
+  }
+}
